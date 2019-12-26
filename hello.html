@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<title>Simple Vue App</title>
+	</head>
+
+	<body>
+		<div id="root">
+			{{message | capitalize}}<br />
+			<input v-model="message" :class="[message.length<4?'red':'green']" /><br />
+			<button v-on:click="click" :disabled="message.length<4">Submit</button>
+		</div>
+
+		<script>
+			const App = new Vue({
+				el: "#root",
+
+				data: {
+					message: "Hello World"
+				},
+
+				methods: {
+					click: function() {
+						alert(this.message);
+					}
+				},
+
+				filters: {
+					capitalize: function(value) {
+						return value.toUpperCase();
+					}
+				},
+
+				created: function() {
+					console.log("created");
+				},
+				mounted: function() {
+					console.log("mounted");
+				},
+				updated: function() {
+					console.log("updated");
+				}
+			});
+		</script>
+
+		<style>
+			.red {
+				border: 2px solid red;
+			}
+			.green {
+				border: 2px solid green;
+			}
+		</style>
+	</body>
+</html>
