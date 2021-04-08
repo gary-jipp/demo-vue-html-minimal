@@ -1,57 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<title>Simple Vue App</title>
-	</head>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Simple Vue App</title>
+  </head>
 
-	<body>
-		<div id="root">
-			{{message | capitalize}}<br />
-			<input v-model="message" :class="[message.length<4?'red':'green']" /><br />
-			<button v-on:click="click" :disabled="message.length<4">Submit</button>
-		</div>
+  <body>
+    <div id="root">
+      {{message | capitalize}}<br />
+      <input v-model="message" :class="[message.length<4?'red':'green']" />
+      <button v-on:click="click" :disabled="message.length<4">Submit</button>
+      <button v-on:click="clear" :disabled="!list.length">Clear</button>
+      <ul id="list">
+        <li v-for="item in list">{{ item }}</li>
+      </ul>
+    </div>
 
-		<script>
-			const App = new Vue({
-				el: "#root",
+    <script>
+      const App = new Vue({
+        el: "#root",
 
-				data: {
-					message: "Hello World"
-				},
+        data: {
+          message: "Hello World",
+          list: [],
+        },
 
-				methods: {
-					click: function() {
-						alert(this.message);
-					}
-				},
+        methods: {
+          click: function () {
+            this.list.push(this.message);
+          },
+          clear: function () {
+            this.list = [];
+          },
+        },
 
-				filters: {
-					capitalize: function(value) {
-						return value.toUpperCase();
-					}
-				},
+        filters: {
+          capitalize: function (value) {
+            return value.toUpperCase();
+          },
+        },
 
-				created: function() {
-					console.log("created");
-				},
-				mounted: function() {
-					console.log("mounted");
-				},
-				updated: function() {
-					console.log("updated");
-				}
-			});
-		</script>
+        created: function () {
+          console.log("created");
+        },
+        mounted: function () {
+          console.log("mounted");
+        },
+        updated: function () {
+          console.log("updated");
+        },
+      });
+    </script>
 
-		<style>
-			.red {
-				border: 2px solid red;
-			}
-			.green {
-				border: 2px solid green;
-			}
-		</style>
-	</body>
+    <style>
+      #root {
+        margin: 2em;
+      }
+      .red {
+        border: 2px solid red;
+      }
+      .green {
+        border: 2px solid green;
+      }
+      ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      li {
+        padding: 5px;
+        margin: 2px;
+        width: 18em;
+        background-color: #ddd;
+      }
+      li:hover {
+        background-color: darkgrey;
+        color: white;
+      }
+    </style>
+  </body>
 </html>
